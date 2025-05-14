@@ -20,15 +20,9 @@ namespace AlgoMCPServer.Controllers
             // Add other strategy names here as they become available
         }
 
-        private readonly IConfiguration _configuration;
-        private readonly String API_KEY;
-        private readonly String API_SECRET;
 
-        public StrategyController(StrategyService strategyService, IConfiguration configuration, UserService userService)
+        public StrategyController(StrategyService strategyService, UserService userService)
         {
-            _configuration = configuration;
-            API_KEY = _configuration["API_KEY"] ?? throw new ArgumentNullException("API_KEY is not configured in user secrets.");
-            API_SECRET = _configuration["API_SECRET"] ?? throw new ArgumentNullException("API_SECRET is not configured in user secrets.");
             _strategyService = strategyService;
             _userService = userService;
         }
