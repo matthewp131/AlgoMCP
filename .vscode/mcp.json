@@ -1,0 +1,14 @@
+{
+    "inputs": [],
+    "servers": {
+        "AlgoMCPTools": {
+            "type": "stdio",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "--project",
+                "D:\\git\\AlgoMCP\\AlgoMCPTools\\AlgoMCPTools.csproj"
+            ]
+        }
+    }
+}
