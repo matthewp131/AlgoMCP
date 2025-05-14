@@ -62,8 +62,6 @@ namespace AlgoMCPServer.Controllers
                 return BadRequest("Account allocation percentage must be between 0 (exclusive) and 1 (inclusive).");
             }
 
-            _userService.AddUser(request.Username, API_KEY, API_SECRET);
-
             // For now, StrategyName from request is noted but InitializeStrategyAsync uses a hardcoded strategy.
             // This can be expanded later to dynamically instantiate strategies based on StrategyName.
             _strategyService.InitializeStrategyAsync(request.Username, request.Symbol, request.AllocationPercentage);

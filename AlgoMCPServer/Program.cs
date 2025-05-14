@@ -1,11 +1,5 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// load secrets
-builder.Configuration.AddUserSecrets<Program>();
-var config = builder.Configuration;
-String API_KEY = config["API_KEY"] ?? throw new ArgumentNullException("API_KEY is not configured in user secrets.");
-String API_SECRET = config["API_SECRET"] ?? throw new ArgumentNullException("API_SECRET is not configured in user secrets.");
-
 builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
@@ -32,27 +26,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-// temporary startup code
-// var userService = app.Services.GetRequiredService<AlgoMCPServer.Services.UserService>();
-// var strategyService = app.Services.GetRequiredService<AlgoMCPServer.Services.StrategyService>();
-// string username = "defaultUser"; // Example username
-
-// if (userService.AddUser(username, API_KEY, API_SECRET))
-// {
-//     Console.WriteLine($"User '{username}' added.");
-
-//     // Example: Initialize strategy for the user
-//     string symbol = "DOGE/USD";
-//     // Renamed variable
-//     decimal accountAllocationPercent = 0.25m; // Use 25% of account equity/buying power for this strategy
-
-//     strategyService.InitializeStrategyAsync(username, symbol, accountAllocationPercent);
-// }
-// else
-// {
-//     Console.WriteLine($"Failed to add user '{username}'.");
-// }
 
 // Graceful shutdown
 var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
