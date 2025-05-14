@@ -34,34 +34,33 @@ app.UseAuthorization();
 app.MapControllers();
 
 // temporary startup code
-var userService = app.Services.GetRequiredService<AlgoMCPServer.Services.UserService>();
-var strategyService = app.Services.GetRequiredService<AlgoMCPServer.Services.StrategyService>();
-string username = "defaultUser"; // Example username
+// var userService = app.Services.GetRequiredService<AlgoMCPServer.Services.UserService>();
+// var strategyService = app.Services.GetRequiredService<AlgoMCPServer.Services.StrategyService>();
+// string username = "defaultUser"; // Example username
 
-if (userService.AddUser(username, API_KEY, API_SECRET))
-{
-    Console.WriteLine($"User '{username}' added.");
+// if (userService.AddUser(username, API_KEY, API_SECRET))
+// {
+//     Console.WriteLine($"User '{username}' added.");
 
-    // Example: Initialize strategy for the user
-    string symbol = "DOGE/USD";
-    // Renamed variable
-    decimal accountAllocationPercent = 0.25m; // Use 25% of account equity/buying power for this strategy
+//     // Example: Initialize strategy for the user
+//     string symbol = "DOGE/USD";
+//     // Renamed variable
+//     decimal accountAllocationPercent = 0.25m; // Use 25% of account equity/buying power for this strategy
 
-    strategyService.InitializeStrategyAsync(username, symbol, accountAllocationPercent);
-}
-else
-{
-    Console.WriteLine($"Failed to add user '{username}'.");
-}
+//     strategyService.InitializeStrategyAsync(username, symbol, accountAllocationPercent);
+// }
+// else
+// {
+//     Console.WriteLine($"Failed to add user '{username}'.");
+// }
 
 // Graceful shutdown
 var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
 lifetime.ApplicationStopping.Register(() =>
 {
     Console.WriteLine("Application is shutting down. Shutting down all strategies...");
+    var strategyService = app.Services.GetRequiredService<AlgoMCPServer.Services.StrategyService>();
     strategyService.StopAllStrategies().GetAwaiter().GetResult();
 });
 
 app.Run();
-
-// await app.RunAsync(cts.Token);
