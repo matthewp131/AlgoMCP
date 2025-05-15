@@ -29,8 +29,8 @@ namespace AlgoMCPTools
             }
         }
 
-        [McpServerTool, Description("Initialize a trading strategy for a user")]
-        public static async Task<string> InitializeStrategy(HttpClient httpClient, string username, string strategyName, string symbol, decimal allocationPercentage)
+        [McpServerTool, Description("Initialize a mean reversion trading strategy for a user")]
+        public static async Task<string> InitializeMeanReversionStrategy(HttpClient httpClient, string username, string strategyName, string symbol, decimal allocationPercentage)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace AlgoMCPTools
                     AllocationPercentage = allocationPercentage
                 };
 
-                var response = await httpClient.PostAsJsonAsync("/api/strategy", request);
+                var response = await httpClient.PostAsJsonAsync("/api/strategy/mean_reversion", request);
                 response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsStringAsync();
                 return content;

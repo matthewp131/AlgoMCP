@@ -34,7 +34,7 @@ namespace AlgoMCPServer.Controllers
             return Ok(strategyNames);
         }
 
-        public class StrategyInitializationRequest
+        public class MeanReversionRequest
         {
             public required string Username { get; set; }
             public required string StrategyName { get; set; } // For future use to select different strategies
@@ -42,8 +42,8 @@ namespace AlgoMCPServer.Controllers
             public decimal AllocationPercentage { get; set; }
         }
 
-        [HttpPost]
-        public IActionResult InitializeStrategy([FromBody] StrategyInitializationRequest request)
+        [HttpPost("mean_reversion")]
+        public IActionResult InitializeMeanReversionStrategy([FromBody] MeanReversionRequest request)
         {
             if (request == null)
             {
